@@ -1,0 +1,40 @@
+/* Estilos para el Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #5e8eec;
+  color: white;
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.logo {
+  height: 110px;
+  width: auto;
+}
+
+.header-title {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.header-button {
+  color: #283430;
+  background-color: #5ce047;
+  border: none;
+  height: 80px;
+  width: 200px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.header-button:hover {
+  background-color: #21a1f1;
+}
