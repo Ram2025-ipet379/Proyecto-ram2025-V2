@@ -1,15 +1,24 @@
 import { useState } from 'react';
-import './App.css';
+import './estilos/App.css';
 import Header from './components/Header';
 import Login from './components/Login';
+import Footer from './components/Footer';
 
 function App() {
   const [view, setView] = useState('main');
   const [showLogin, setShowLogin] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
   const [selectedOption, setSelectedOption] = useState('');
   const [selectedTeacher, setSelectedTeacher] = useState('');
   const [selectedSubject, setSelectedSubject] = useState('');
   const [topic, setTopic] = useState('');
+  const [evaluation, setEvaluation] = useState({ difficulty: '', feedback: '' });
+  const [registrationData, setRegistrationData] = useState({
+    name: '',
+    age: '',
+    grade: '',
+    email: ''
+  });
 
   const handleStartClick = () => {
     setView('options');
@@ -19,8 +28,16 @@ function App() {
     setShowLogin(true);
   };
 
+  const handleRegisterClick = () => {
+    setShowRegister(true);
+  };
+
   const handleCloseLogin = () => {
     setShowLogin(false);
+  };
+
+  const handleCloseRegister = () => {
+    setShowRegister(false);
   };
 
   const handleOptionChange = (event) => {
@@ -37,6 +54,15 @@ function App() {
 
   const handleTopicChange = (event) => {
     setTopic(event.target.value);
+  };
+
+  const handleEvaluationChange = (event) => {
+    const { name, value } = event.target;
+    if (name === 'difficulty' && (value < 1 || value > 10)) {
+      alert('Por favor, ingresa un valor entre 1 y 10.');
+      return;
+    }
+    setEvaluation((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleConfirmOptionClick = () => {
@@ -65,15 +91,30 @@ function App() {
 
   const handleSubmitTopic = () => {
     if (topic.trim()) {
-      alert(`Tema ingresado: ${topic}`);
-      setView('main');
+      setView('evaluation');
     } else {
       alert('Por favor, ingresa un tema.');
     }
   };
 
+  const handleSubmitEvaluation = () => {
+    if (evaluation.difficulty && evaluation.feedback) {
+      alert('Gracias por tu evaluación.');
+      setView('main');
+      setSelectedOption('');
+      setSelectedTeacher('');
+      setSelectedSubject('');
+      setTopic('');
+      setEvaluation({ difficulty: '', feedback: '' });
+    } else {
+      alert('Por favor, completa todos los campos.');
+    }
+  };
+
   const handleBackClick = () => {
-    if (view === 'topics') {
+    if (view === 'evaluation') {
+      setView('topics');
+    } else if (view === 'topics') {
       setView('subjects');
     } else if (view === 'subjects') {
       setView('teachers');
@@ -81,6 +122,22 @@ function App() {
       setView('options');
     } else if (view === 'options') {
       setView('main');
+    }
+  };
+
+  const handleRegistrationChange = (event) => {
+    const { name, value } = event.target;
+    setRegistrationData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmitRegistration = () => {
+    const { name, age, grade, email } = registrationData;
+    if (name && age && grade && email) {
+      alert('Registro exitoso.');
+      setShowRegister(false);
+      setRegistrationData({ name: '', age: '', grade: '', email: '' });
+    } else {
+      alert('Por favor, completa todos los campos.');
     }
   };
 
@@ -102,9 +159,10 @@ function App() {
       <Header onLogoClick={() => setView('main')} />
       {view === 'main' && (
         <div>
-          <h1>Bienvenidos sean</h1>
+          <h1>Bienvenidos</h1>
           <button className="start-button" onClick={handleStartClick}>Comenzar</button>
-          <button className="header-button" onClick={handleLoginClick}>Inicio</button>
+          <button className="header-button" onClick={handleLoginClick}>Iniciar sesión</button>
+          <button className="header-button" onClick={handleRegisterClick}>Regístrarse</button>
         </div>
       )}
       {view === 'options' && (
@@ -118,6 +176,7 @@ function App() {
                     type="radio"
                     name="options"
                     value={option}
+                    checked={selectedOption === option}
                     onChange={handleOptionChange}
                   />
                   {option}
@@ -140,6 +199,7 @@ function App() {
                     type="radio"
                     name="teachers"
                     value={teacher}
+                    checked={selectedTeacher === teacher}
                     onChange={handleTeacherChange}
                   />
                   {teacher}
@@ -162,6 +222,7 @@ function App() {
                     type="radio"
                     name="subjects"
                     value={subject}
+                    checked={selectedSubject === subject}
                     onChange={handleSubjectChange}
                   />
                   {subject}
@@ -188,7 +249,86 @@ function App() {
           <button className="back-button" onClick={handleBackClick}>Volver</button>
         </div>
       )}
-      {showLogin && <Login onClose={handleCloseLogin} />}
+      {view === 'evaluation' && (
+        <div>
+          <h2>Evaluación</h2>
+          <label>
+            ¿Cómo crees que te fue? (1-10)
+            <input
+              type="number"
+              name="difficulty"
+              value={evaluation.difficulty}
+              onChange={handleEvaluationChange}
+              min="1"
+              max="10"
+            />
+          </label>
+          <br />
+          <label>
+            ¿Te resultó fácil la evaluación/trabajo práctico?
+            <textarea
+              name="feedback"
+              value={evaluation.feedback}
+              onChange={handleEvaluationChange}
+              placeholder="Escribe tus comentarios aquí"
+              rows="4"
+              cols="50"
+            />
+          </label>
+          <br />
+          <button className="confirm-button" onClick={handleSubmitEvaluation}>Enviar</button>
+          <button className="back-button" onClick={handleBackClick}>Volver</button>
+        </div>
+      )}
+      {showLogin && <Login onClose={handleCloseLogin} onRegister={() => setView('register')} />}
+      {showRegister && (
+        <div className="register-page">
+          <h2>Registro de Alumno</h2>
+          <label>
+            Nombre:
+            <input
+              type="text"
+              name="name"
+              value={registrationData.name}
+              onChange={handleRegistrationChange}
+            />
+          </label>
+          <br />
+          <label>
+            Edad:
+            <input
+              type="number"
+              name="age"
+              value={registrationData.age}
+              onChange={handleRegistrationChange}
+            />
+          </label>
+          <br />
+          <label>
+            Grado:
+            <input
+              type="text"
+              name="grade"
+              value={registrationData.grade}
+              onChange={handleRegistrationChange}
+            />
+          </label>
+          <br />
+          <label>
+            Correo Electrónico:
+            <input
+              type="email"
+              name="email"
+              value={registrationData.email}
+              onChange={handleRegistrationChange}
+            />
+          </label>
+          <br />
+          <button className="confirm-button" onClick={handleSubmitRegistration}>Registrar</button>
+          <button className="back-button" onClick={handleCloseRegister}>Cancelar</button>
+        </div>
+      )}
+      <Footer />
     </div>
   );
 }

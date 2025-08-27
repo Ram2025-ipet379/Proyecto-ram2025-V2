@@ -3,7 +3,7 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-  background-color: aqua;
+  background: linear-gradient(135deg, #4cafb0, #81d4c3);
 }
 
 .logo {
@@ -13,10 +13,10 @@
   transition: filter 300ms;
 }
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+  filter: drop-shadow(0 0 2em #4cafb0aa);
 }
 .logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  filter: drop-shadow(0 0 2em #81d4c3aa);
 }
 
 
@@ -26,23 +26,30 @@
 }
 
 .read-the-docs {
-  color: #888;
+  color: #6c757d;
 }
 
 /* Estilos para el botón Comenzar */
 .start-button {
+  position: relative;
   padding: 1rem 2rem;
   font-size: 1.2rem;
   color: white;
-  background-color: #5e8eec;
+  background-color: #4cafb0;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
+  place-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%; /* 50% desde la parte superior */
+  left: 50%; /* 50% desde la izquierda */
+  transform: translate(-50%, -50%); /* Ajusta el centro del botón */
 }
 
 .start-button:hover {
-  background-color: #3a6fd8;
+  background-color: #3a9a98;
 }
 
 /* Estilos para el botón Confirmar */
@@ -50,7 +57,7 @@
   padding: 1rem 2rem;
   font-size: 1.2rem;
   color: white;
-  background-color: #28a745;
+  background-color: #4cafb0;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -59,7 +66,7 @@
 }
 
 .confirm-button:hover {
-  background-color: #218838;
+  background-color: #3a9a98;
 }
 
 /* Estilos para el botón Volver */
@@ -67,7 +74,7 @@
   padding: 1rem 2rem;
   font-size: 1.2rem;
   color: white;
-  background-color: #dc3545;
+  background-color: #81d4c3;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -77,5 +84,5 @@
 }
 
 .back-button:hover {
-  background-color: #c82333;
+  background-color: #4cafb0;
 }

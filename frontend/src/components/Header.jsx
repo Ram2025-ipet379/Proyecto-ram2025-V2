@@ -1,7 +1,7 @@
 import React from 'react';
 import RamLogo from '../assets/RamLogo.png';
 import LogoColegio from '../assets/LogoColegio.png';
-import './Header.css'; // Archivo CSS para estilos
+import '../estilos/Header.css'; // Archivo CSS para estilos
 
 const Header = ({ onLogoClick }) => {
   return (

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import './Login.css';
+import "../components/Register";
+import '../estilos/Login.css';
 
-const Login = ({ onClose }) => {
+const Login = ({ onClose, onRegister }) => {
   return (
     <div className="login-modal">
       <div className="login-content">
@@ -25,7 +26,7 @@ const Login = ({ onClose }) => {
           </label>
           <button type="submit">Iniciar Sesión</button>
         </form>
-        <p>¿No tienes una cuenta? <a href="#">Regístrate</a></p>
+        <p>¿No tienes una cuenta? <a href="#" onClick={onRegister}>Regístrate</a></p>
         <button className="close-button" onClick={onClose}>Cerrar</button>
       </div>
     </div>
