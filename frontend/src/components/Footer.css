@@ -1,0 +1,22 @@
+/* Estilos para el Footer */
+.footer {
+  position: relative;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 1rem;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  background-color: aquamarine;
+  margin-top: auto;
+}
+
+.footer-logo {
+  height: 50px;
+  width: auto;
+  margin-bottom: 0.5rem;
+}
